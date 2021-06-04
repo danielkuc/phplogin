@@ -7,7 +7,9 @@
   <title>Php Project</title>
   <!-- link to font -->
   <!-- link to reset -->
+  <link rel="stylesheet" href="css/reset.css">
   <!-- link to stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   
