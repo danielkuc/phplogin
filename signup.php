@@ -4,7 +4,7 @@
 
 <section class="signup-form">
   <h2>Sign Up</h2>
-  <form action="signup.comp.php" method="post">
+  <form action="components/signup.comp.php" method="post">
   <input type="text" name="name" placeholder="Full Name">  
   <input type="email" name="email" placeholder="E-mail">  
   <input type="text" name="uid" placeholder="Username">  
