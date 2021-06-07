@@ -26,7 +26,7 @@ if(isset($_POST["submit"])) {
       header("location: ../signup.php?error=pwdinvalid");
       exit();
     };
-    if(uidExists($conn, $username)) {
+    if(uidExists($conn, $username, $email)) {
       header("location: ../signup.php?error=uidtaken");
       exit();
     };
