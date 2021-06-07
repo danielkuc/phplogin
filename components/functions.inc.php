@@ -34,3 +34,14 @@ function invalidEmail($email) {
   }
   return $result;
 };
+
+
+function pwdMatch($pwd, $pwdRepeat) {
+  $result;
+  if($pwd !== $pwdRepeat) {
+    $result = true;
+  } else {
+    $result = false;
+  }
+  return $result;
+};
