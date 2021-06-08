@@ -1,6 +1,7 @@
 <?php
 
 if(isset($_POST["submit"])) {
+  
   $name = $_POST["name"];
   $email = $_POST["email"];
   $username = $_POST["uid"];
@@ -10,30 +11,21 @@ if(isset($_POST["submit"])) {
   require_once 'dbh.comp.php';
   require_once 'functions.comp.php';
 
-  if(emptyInput($name, $email, $username, $pwd, $pwdRepeat) !== false) {
-    header("location: ../signup.php?error=emptyinput");
-    exit();
-  }
+  (!emptyInput($name, $email, $username, $pwd, $pwdRepeat)) ? 
+    header("location: ../signup.php?error=emptyinput") : null;  
     
-    if(invalidUid($username) !== false) {
-      header("location: ../signup.php?error=invaliduid");
-      exit();
-    };
-    if(invalidEmail($email) !== false) {
-      header("location: ../signup.php?error=invalidemail");
-      exit();
-    };
-    if(pwdmatch($pwd, $pwdRepeat)) {
-      header("location: ../signup.php?error=pwdinvalid");
-      exit();
-    };
-    if(uidExists($conn, $username, $email)) {
-      header("location: ../signup.php?error=uidtaken");
-      exit();
-    };
+  (!invalidUid($username)) ? header("location: ../signup.php?error=invaliduid") : null;
 
-    createUser($conn, $name, $email, $username, $pwd);
+  (!invalidEmail($email)) ? header("location: ../signup.php?error=invalidemail") : null;
+
+  (!pwdmatch($pwd, $pwdRepeat)) ? header("location: ../signup.php?error=pwdinvalid") : null;
+
+  (!uidExists($conn, $username, $email)) ? header("location: ../signup.php?error=uidtaken") : null; 
+
+  createUser($conn, $name, $email, $username, $pwd);
+
   } else {
+  
   header("location: ../signup.php");
   exit();
 }
