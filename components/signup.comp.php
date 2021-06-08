@@ -13,13 +13,14 @@ if(isset($_POST["submit"])) {
   if(emptyInput($name, $email, $username, $pwd, $pwdRepeat) !== false) {
     header("location: ../signup.php?error=emptyinput");
     exit();
+  }
     
     if(invalidUid($username) !== false) {
       header("location: ../signup.php?error=invaliduid");
       exit();
     };
     if(invalidEmail($email) !== false) {
-      header("location: ../signup.php?error=invaliduid");
+      header("location: ../signup.php?error=invalidemail");
       exit();
     };
     if(pwdmatch($pwd, $pwdRepeat)) {
@@ -31,12 +32,8 @@ if(isset($_POST["submit"])) {
       exit();
     };
 
-    createUser($conn, $name, $email, $username, $pwd) {
-
-    }
-  }
-
-} else {
+    createUser($conn, $name, $email, $username, $pwd);
+  } else {
   header("location: ../signup.php");
   exit();
 }

@@ -12,6 +12,31 @@
   <input type="password" name="pwdrepeat" placeholder="Confirm Password">
   <button type="submit" name="submit">Sign Up</button>  
   </form>
+  <?php
+    switch(isset($_GET["error"])) {
+      case "emptyinput":
+        echo "<p>All input fields must be filled in.</p>";
+        break;
+      case "invaliduid":
+        echo "<p>Invalid username.</p>";
+        break;
+      case "invalidemail":
+        echo "<p>Invalid Email.</p>";
+        break;
+      case "pwdinvalid":
+        echo "<p>Passwords don't match.</p>";
+        break;
+      case "stmtfailed":
+        echo "<p>Something went wrong, try again.</p>";
+        break;
+      case "uidtaken":
+        echo "<p>Username already taken.</p>";
+        break;
+      case "none":
+        echo "<p>Sign up successful!</p>";
+        break;
+    }
+  ?>
 </section>
 
   <?php
