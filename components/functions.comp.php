@@ -18,7 +18,7 @@ function invalidUid($username) {
 
 
 function invalidEmail($email) {
-  return (!!filter_var($email, FILTER_VALIDATE_EMAIL) ? true : false;
+  return (!filter_var($email, FILTER_VALIDATE_EMAIL) ? true : false;
 };
 
 
@@ -37,4 +37,18 @@ function uidExists($conn, $username, $email) {
   $resultData = mysqli_stmt_get_result($stmt);
   return ($row = mysqli_fetch_assoc($resultData)) ? $row : false;
   mysqli_stmt_close($stmt);
+};
+
+
+function createUser($conn, $name, $email, $username, $pwd) {
+  $sql = "INSERT INTO users (usersName, usersEmail, usersUid, usersPwd) VALUES (?, ?, ?, ?);";
+  $stmt = mysqli_stmt_init($conn);
+  (!mysql_stmt_prepare($stmt, $sql)) ? header("location: ../signup.php?error=stmtfailed") : null;
+
+  $hashedPwd = password_hash($pwd,PASSWORD_DEFAULT);
+
+  mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $username, $hashedPwd);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_close($stmt);
+  header("location: ../signup.php?error=none")
 };
