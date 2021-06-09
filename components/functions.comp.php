@@ -3,7 +3,7 @@
 function emptyInput($name, $email, $username, $pwd, $pwdRepeat) {
   $result;
 
-  if(empty($name) || empty($email) || empty($username) || empty($username) || empty($pwd) || empty($pwdRepeat)) {
+  if(empty($name) || empty($email) || empty($username) || empty($pwd) || empty($pwdRepeat)) {
     $result = true;
   } else {
     $result = false;
@@ -52,3 +52,33 @@ function createUser($conn, $name, $email, $username, $pwd) {
   mysqli_stmt_close($stmt);
   header("location: ../signup.php?error=none");
 };
+
+function emptyInputLogin($username, $pwd) {
+  $result;
+
+  if(empty($username) || empty($pwd)) {
+    $result = true;
+  } else {
+    $result = false;
+  }
+
+  return $result;
+};
+
+function loginUser($conn, $username, $pwd) {
+  $uidExists = uidExists($conn, $username, $email);
+
+  !$uidExists ? header("location: ../login.php?error=invalidlogin") : null;
+
+  $pwdHashed = $uidExists["usersPwd"];
+
+  $checkPwd = password_verify($pwd, $pwdHashed);
+  if (!$checkPwd) {
+    header("location: ../login.php?error=invalidlogin");
+    exit();
+  } else if ($checkPwd) {
+    session_start();
+    $_SESSION["userid"] = $uidExists["usersId"];
+    $_SESSION["useruid"] = $uidExists["usersUid"];
+    header("location: ../index.php");
+  }
